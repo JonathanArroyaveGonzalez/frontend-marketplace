@@ -22,7 +22,6 @@ export class InicioComponent implements OnInit, AfterViewInit {
   ];
 
   ngOnInit() {
-    // Lógica para cargar productos destacados y categorías desde tu API
   }
 
   ngAfterViewInit() {

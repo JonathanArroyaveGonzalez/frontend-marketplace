@@ -1,3 +1,26 @@
-<p>
-  menu-lateral works!
-</p>
+<ul id="slide-out" class="sidenav">
+  <li>
+    <div class="user-view">
+      <div class="background">
+        <img src="https://materializecss.com/images/office.jpg" />
+      </div>
+      <a href="#user"><img class="circle" src="https://materializecss.com/images/yuna.jpg" /></a>
+      <a href="#name"><span class="white-text name">{{dataSesion.name}} {{dataSesion.lastName}}</span></a>
+      <a href="#email"><span class="white-text email">{{dataSesion.email}}</span></a>
+    </div>
+  </li>
+<li><a class="subheader">Opciones</a></li>
+  <li >
+    <a routerLink=""> Mi cuenta</a>
+    <a href="producto/post">Mis publicaciones</a>
+
+  </li>
+  <li><div class="divider"></div></li>
+<li><a class="subheader">Cuenta</a></li>
+<li><a routerLink="/seguridad/recuperar-clave">Recuperar clave</a></li>
+<li><a routerLink="/seguridad/cambiar-clave">Cambiar Clave</a></li>
+  <li><a routerLink="/seguridad/cerrar-sesion" class="waves-effect waves-light btn-large blue-grey darken-3">Cerrar Sesión</a></li>
+</ul>
+<a href="#" data-target="slide-out" class="sidenav-trigger"
+  ><i class="material-icons ">menu</i></a
+>

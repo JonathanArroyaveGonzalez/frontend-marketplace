@@ -1,12 +1,16 @@
-<nav class="blue-grey darken-4">
+<nav class="blue-grey darken-3">
   <div class="nav-wrapper">
-    <a routerLink="/inicio" class="brand-logo"><img src="assets/images/logoFrutana.png" width="50" height="40"/>Frutana</a>
+    <a routerLink="/inicio" class="brand-logo" style="margin-left: 10px;"><img src="assets/images/logoFrutana.png" width="100" height="65" /></a>
     <ul id="nav-mobile" class="right hide-on-med-and-down ">
       <li><a class="grey-text text-lighten-3" routerLink="/inicio">Inicio</a></li>
       <li><a class="grey-text text-lighten-3" routerLink="/nosotros">Nosotros</a></li> 
-      <li><a class="grey-text text-lighten-3" routerLink="/seguridad/formulario-contacto-administrador">Contacto</a></li>
-      <li><a  class="waves-effect waves-light btn" routerLink="/inicio">Iniciar Sesión</a></li>
-      
+      <li><a  class="grey-text text-lighten-3" routerLink="/seguridad" *ngIf ="sesionActiva == false">Iniciar Sesión</a></li>
+      <li><a *ngIf="sesionActiva" routerLink="/seguridad/cambiar-clave">Cambiar Clave</a></li>
+      <li><a *ngIf="sesionActiva" routerLink="/seguridad/cerrar-sesion">Cerrar Sesión</a></li>
+      <!-- Falta crear el componente de cerrar seccion OJO  -->
     </ul>
   </div>
 </nav>
+<div style="padding: 40px;" *ngIf="sesionActiva">
+  <app-menu-lateral> </app-menu-lateral>
+</div>
