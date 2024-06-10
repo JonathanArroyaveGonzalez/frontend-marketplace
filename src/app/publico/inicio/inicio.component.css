@@ -16,3 +16,12 @@
 .card-content {
     padding: 2px 16px;
 }
+
+
+.my-pagination ::ng-deep .ngx-pagination {
+    background-color: #9e9e9e;
+  }
+
+    
+
+  

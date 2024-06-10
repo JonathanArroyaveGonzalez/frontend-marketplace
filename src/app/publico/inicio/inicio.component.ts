@@ -1,5 +1,7 @@
 import { AfterViewInit, Component, OnInit } from '@angular/core';
 import { Router } from '@angular/router';
+import { ConfiguracionPaginacion } from 'src/app/config/configuracion.paginacion';
+import { PaginadorPostModel } from 'src/app/core/models/Paginador.post.model';
 import { PostModel } from 'src/app/core/models/Post.model';
 import { LogicaNegocioService } from 'src/app/servicios/logica-negocio.service';
 import { SeguridadService } from 'src/app/servicios/seguridad.service';
@@ -26,6 +28,9 @@ export class InicioComponent implements OnInit, AfterViewInit {
   ];
 
   productList : PostModel [] = [];
+  pag =1;
+  total = 0;
+  registrosPorPagina = ConfiguracionPaginacion.registrosPorPagina;
 
   constructor(
     private servicioLogicaNegocio: LogicaNegocioService,
@@ -42,9 +47,10 @@ export class InicioComponent implements OnInit, AfterViewInit {
   }
 
   listarPost() {
-    this.servicioLogicaNegocio.ListarPost().subscribe({
-      next: (respuesta: PostModel[]) => {
-        this.productList = respuesta;
+    this.servicioLogicaNegocio.ListarPost(this.pag).subscribe({
+      next: (respuesta: PaginadorPostModel ) => {
+        this.productList = respuesta.registros;
+        this.total = respuesta.totalRegistros;
         console.log(this.productList);
       },
       error: (error: any) => {

@@ -11,6 +11,7 @@ import { RutaNoEncontradaComponent } from './publico/errores/ruta-no-encontrada/
 import { ErrorDeServidorComponent } from './publico/errores/error-de-servidor/error-de-servidor.component';
 import { ReactiveFormsModule } from '@angular/forms';
 import { MenuLateralComponent } from './publico/pagina-maestra/menu-lateral/menu-lateral.component';
+import { NgxPaginationModule } from 'ngx-pagination';
 
 
 @NgModule({
@@ -28,6 +29,7 @@ import { MenuLateralComponent } from './publico/pagina-maestra/menu-lateral/menu
     AppRoutingModule,
     HttpClientModule,
     ReactiveFormsModule,
+    NgxPaginationModule,
   ],
   providers: [],
   bootstrap: [AppComponent]
