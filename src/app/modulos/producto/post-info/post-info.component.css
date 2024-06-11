@@ -1,0 +1,111 @@
+/* General Styles */
+* {
+    font-family: "Oswald", sans-serif;
+  }
+  
+  body {
+    background-color: whitesmoke;
+    color: #444444;
+    display: flex;
+    height: 100vh;
+    margin: auto;
+  }
+  
+  .container {
+    align-items: center;
+    flex-direction: column;
+    justify-content: center;
+    margin: 30px;
+    max-width: 900px;
+    width: 100%;
+  }
+  
+  h5 {
+    font-size: 14px;
+    margin: 0;
+    text-transform: uppercase;
+  }
+  
+  ul {
+    list-style: none;
+    margin: 0;
+    padding: 0;
+  }
+  
+  a {
+    color: #bbb;
+    text-decoration: none;
+  }
+  
+  /* Product Section */
+  .product-image {
+    align-items: center;
+    background: linear-gradient(to bottom, #6bffc8 0%, #42c8cb 100%);
+    border-radius: 20px 20px 0 0;
+    display: flex;
+    flex-direction: column;
+    margin: auto;
+    padding: 55px 0;
+    width: 100%;
+  }
+  
+  .product-pic {
+    filter: drop-shadow(-6px 40px 23px rgba(0, 0, 0, 0.5));
+    left: 0;
+    margin: 40px 0;
+    max-width: 180px;
+    position: relative;
+  }
+  
+  .product-details {
+    background-color: white;
+    border-radius: 0 0 20px 20px;
+    padding: 40px;
+  }
+  
+ 
+  
+  
+  /* Dots Section */
+  .dots {
+    display: flex;
+    margin-top: 40px;
+  }
+  
+  .dots > a {
+    background-color: #349a98;
+    border-radius: 50%;
+    height: 10px;
+    margin: 0 4px;
+    width: 10px;
+  }
+  
+  .dots > a:hover,
+  .dots > a.active {
+    background-color: white;
+  }
+  
+  .dots i { 
+    display: none; 
+  }
+
+  .qualifications {
+    display: inline-block;
+    font-size: 24px; /* Adjust the star size as needed */
+    color: gold; /* Default (unfilled) star color */
+   
+}
+
+
+ 
+  
+  label {
+    font-weight: bold;
+  }
+
+  
+  
+
+
+
+  

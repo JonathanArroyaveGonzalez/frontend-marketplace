@@ -1,0 +1,34 @@
+/ * Star seccion  */
+
+.rating {
+  display: inline-block;
+  position: relative;
+  height: 50px;
+  line-height: 50px;
+  font-size: 50px;
+}
+
+.rating {
+  display: inline-block;
+  unicode-bidi: bidi-override;
+  direction: rtl; 
+}
+
+.rating input {
+  position: absolute;
+  left: -9999px; 
+}
+
+.rating label {
+  display: inline-block;
+  font-size: 24px; 
+  color: #ccc; 
+  cursor: pointer;
+}
+
+.rating label:hover,
+.rating label:hover ~ label,
+.rating input:checked ~ label {
+  color: gold; 
+}
+

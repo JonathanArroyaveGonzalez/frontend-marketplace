@@ -1,0 +1,71 @@
+<div class="container">
+  <!--   https://www.jerecho.com/codepen/nike-product-page/ -->
+    <div class="product-image">
+      <img src={{this.urlImage}} alt="" class="product-logo" style="height: 200px; width:200px;"> 
+      <div class="dots">
+        
+        <a  *ngFor="let image of post?.images; let i = index" (click)="changeImage(i)" [class.active]="i === currentImageIndex"><i>{{ i + 1 }}</i></a>
+   
+      </div>
+    </div>
+    
+    <div class="product-details">
+      <header>
+        <h1 class="title" style="text-align: center;">{{post?.name}}</h1>
+        <div class="price">
+          <h4>${{post?.price}}</h4>
+        </div>
+        
+        <label for="cantidad" class="input-field col s1">Unidades</label>
+        <div class="row">
+            <input type="number" name="cantidad" id="cantidad" value="0" class="input-field col s1">
+          
+            <button type="button"  class="input-field col s6  waves-effect waves-light btn-large blue-grey darken-3" style="margin-left: 100px;">
+              <img src="http://co0kie.github.io/codepen/nike-product-page/cart.png" alt="">
+              <span>añadir al carrito</span>
+            </button>
+        </div>
+
+        <article>
+          <h5>Descripción</h5>
+          <p>{{post?.description}}.</p>
+        </article>
+
+        <div class="rating">
+          <input type="radio" name="rating" id="rating-5" value="5">
+          <label for="rating-5">☆</label>
+          <input type="radio" name="rating" id="rating-4" value="4">
+          <label for="rating-4">☆</label>
+          <input type="radio" name="rating" id="rating-3" value="3">
+          <label for="rating-3">☆</label>
+          <input type="radio" name="rating" id="rating-2" value="2">
+          <label for="rating-2">☆</label>
+          <input type="radio" name="rating" id="rating-1" value="1">
+          <label for="rating-1">☆</label>
+        </div>
+
+      </header>
+      
+      <div>
+        <table>
+          <thead>Reseñas</thead>
+          <tbody>
+            <td>
+              
+            </td>
+            <td *ngIf="this.qualification == false"> Sin reseñas aún.</td>
+            <tr *ngFor="let review of this.qualificationList">
+              <td>{{review.comment}} 
+                <div class="qualifications">
+                  <ng-container *ngFor="let i of createArray(review.score ?? 0)"> 
+                    <label class="qualifications" >★</label>
+                  </ng-container>
+                </div>
+              </td>
+            </tr>
+        </table>
+      </div>
+      
+    </div> 
+    
+  </div>
