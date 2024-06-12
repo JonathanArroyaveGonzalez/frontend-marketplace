@@ -13,4 +13,5 @@ export class PostIdModel{
     creation_date?: string;
     images?: ImagenModel[];
     qualifications?: QualificationModel[][];
+    created_User?: string;
 }

@@ -1,4 +1,5 @@
 import { ImagenModel } from "./Imagen.model";
+import { OrderModel } from "./Order.model";
 
 export class PostModel{
     category?: number;
@@ -11,4 +12,6 @@ export class PostModel{
     stock?: number;
     creation_date?: string;
     images?: ImagenModel[];
+    user_id?: string;
+    orders?: OrderModel[]
 }
