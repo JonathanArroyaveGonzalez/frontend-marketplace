@@ -208,6 +208,25 @@ input {
 }
 
 
+  
+
+  .password-input-container {
+	position: relative;
+	width: 100%;
+  }
+
+  .password-input-container i {
+	position: absolute;
+	top: 50%;
+	right: 10px; /* Adjust as needed */
+	transform: translateY(-50%); /* Center vertically */
+	background: none;
+	border: none;
+	cursor: pointer;
+	color: black;
+  }
+
+
 
 
 

@@ -1,6 +1,7 @@
 import { Component, OnInit } from '@angular/core';
 import { FormBuilder, FormGroup, Validators } from '@angular/forms';
-
+import { LogicaNegocioService } from 'src/app/servicios/logica-negocio.service';
+declare let M: any;
 @Component({
     selector: 'app-post',
     templateUrl: './post.component.html',
@@ -8,20 +9,23 @@ import { FormBuilder, FormGroup, Validators } from '@angular/forms';
 })
 export class PostComponent implements OnInit {
     form: FormGroup;
-    images: string[] = []; // Almacena las imágenes en base64
+    images: File[] = []; // Almacena las imágenes en base64
     imagePreviews: string[] = []; // Almacena las URLs para las previsualizaciones
+    postID: string = '';
 
-
-    constructor(private fb: FormBuilder) {
+    constructor(private fb: FormBuilder, private servicioLogicaNegocio: LogicaNegocioService) {
         this.form = this.fb.group({
             nombre: ['', Validators.required],
             precio: ['', Validators.required],
             stock: ['', Validators.required],
-            descripcion: ['', Validators.required]
+            descripcion: ['', Validators.required],
+            categoria: ['', Validators.required] ,  
         });
     }
 
-    ngOnInit(): void {} 
+    ngOnInit(): void {
+        M.AutoInit();
+    } 
 
     onFileChange(event: Event) {
       const files = (event.target as HTMLInputElement).files;
@@ -34,8 +38,9 @@ export class PostComponent implements OnInit {
           for (let i = 0; i < numFilesToProcess; i++) {
               const reader = new FileReader();
               reader.onload = (e: any) => {
-                  // Almacenar la imagen en base64 en el array 'images'
-                  this.images.push(e.target.result);
+                  // Almacenar la imagen de tipo FILE en el array 'images'
+                  
+                  this.images.push(files[i]);
 
                   // Almacenar la URL de previsualización en el array 'imagePreviews'
                   this.imagePreviews.push(e.target.result); 
@@ -52,17 +57,38 @@ export class PostComponent implements OnInit {
     onSubmit() {
       
           if (this.form.valid) {
-            const formData = new FormData();
-            formData.append('nombre', this.form.get('nombre')?.value);
-            formData.append('precio', this.form.get('precio')?.value);
-            formData.append('stock', this.form.get('stock')?.value);
-            formData.append('descripcion', this.form.get('descripcion')?.value);
-
-            // Agregar las imágenes al FormData
-            for (let i = 0; i < this.images.length; i++) {
-                formData.append(`images[${i}]`, this.images[i]); 
+            const DataPost = {
+                "name": this.form.get('nombre')?.value,
+                "category": this.form.get('categoria')?.value,
+                "price": this.form.get('precio')?.value,
+                "description": this.form.get('descripcion')?.value,
+                "stock": this.form.get('stock')?.value,
+                "status": 1
             }
-            console.log(this.form.value, this.images); 
+
+            this.servicioLogicaNegocio.CrearPost(DataPost).subscribe({
+                next: (data) => {
+                    this.postID = data;
+                    this.guardarImagenes();
+                },
+                error: (error) => {
+                    console.log(error);
+                }
+            })
         
     }}
+
+    guardarImagenes() {
+        this.images.forEach(imagen => {
+            this.servicioLogicaNegocio.CargarImagenesPost( imagen,this.postID ).subscribe({
+                next: (data) => {
+                    console.log(data);
+                },
+                error: (error) => {
+                    alert("Se produjo un error al cargar la imagenes")
+                }
+            })
+        });
+
+    }
 }

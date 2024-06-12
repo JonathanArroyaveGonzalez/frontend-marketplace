@@ -1,11 +1,25 @@
 <form [formGroup]="form" (ngSubmit)="onSubmit()">
   <label for="nombre">Nombre producto</label>
   <input type="text" formControlName="nombre" placeholder="Nombre" name="nombre">
+
+  
+  <div class="input-field col s12">
+    <select formControlName="categoria">
+      <option value="" disabled selected>Seleccione una categoria</option>
+      <option value="1">Frutas</option>
+      <option value="2">Verduras</option>
+      <option value="3">Insumos</option>
+    </select>
+    <label>Categoria</label>
+  </div>
+  <span *ngIf="this.form.get('categoria')?.errors?.['required']">
+    (este campo es requerido)
+  </span>
   <label for="precio">Precio</label>
   <input type="number" formControlName="precio" placeholder="Precio" name="precio">
   <label for="stock">Stock</label>
   <input type="number" formControlName="stock" placeholder="Stock" name="stock">
-  <label for="descripcion">Nombre producto</label>
+  <label for="descripcion">Descripcion</label>
   <textarea formControlName="descripcion" placeholder="Descripción" name="descripcion"></textarea>
 
   <input type="file" (change)="onFileChange($event)" multiple accept="image/*"> 

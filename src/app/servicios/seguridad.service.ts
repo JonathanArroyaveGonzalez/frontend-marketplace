@@ -101,4 +101,18 @@ ObtenerDatosUsuarioLS(): UsuarioModel | null {
     return this.datosUsuarioValidado.next(datos);
   }
 
+   /**
+  * Obtiene el token del usuario almacenado en local storage
+  * @returns Token del usuario validado
+  */
+   ObtenerTokenLocalStorage(): string{
+    let ls = localStorage.getItem("datos-sesion");
+    if(ls){
+      let usuario: UsuarioValidadoModel = JSON.parse(ls);
+      return usuario.token!;
+    } else {
+      return "";
+    }
+  }
+
 }

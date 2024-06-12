@@ -1,26 +1,61 @@
+/* Estilos generales para las cards */
 .card {
-    box-shadow: 0 4px 8px 0 rgba(0,0,0,0.2);
+    box-shadow: 0 4px 8px 0 rgba(0, 0, 0, 0.2);
     transition: 0.3s;
     border-radius: 5px;
+    width: 100%; /* Ocupa todo el ancho de su contenedor */
+    height: 100%; /* Ocupa todo el alto de su contenedor */
+    display: flex; /* Flexbox para el diseño vertical */
+    flex-direction: column; /* Apila los elementos verticalmente */
 }
 
 .card:hover {
-    box-shadow: 0 8px 16px 0 rgba(0,0,0,0.2);
+    box-shadow: 0 8px 16px 0 rgba(0, 0, 0, 0.2);
 }
 
-.card img {
+/* Imagen de la card */
+.card-image {
+    height: 200px; /* Altura fija para la imagen */
+    overflow: hidden; /* Oculta cualquier desbordamiento */
+}
+
+.card-image img {
     width: 100%;
-    height: 150px;
+    height: 100%; /* Imagen ocupa todo el espacio del contenedor */
+    object-fit: cover; /* Cubre todo el espacio, recortando si es necesario */
 }
 
+/* Contenido de la card */
 .card-content {
-    padding: 2px 16px;
+    padding: 16px; /* Espacio interno */
+    flex-grow: 1; /* Permite que el contenido ocupe el espacio restante */
+    display: flex;
+    flex-direction: column;
+    justify-content: space-between;
 }
 
+/* Título de la card */
+.card-title {
+    font-weight: 500;
+    margin-bottom: 8px;
+}
 
+/* Precio de la card */
+.card-title.text-darken-4 {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+}
+
+/* Enlace de la card */
+.card-content p {
+    margin-top: auto; /* Empuja el enlace hacia abajo */
+}
+
+/* Estilos para la paginación (si es necesario) */
 .my-pagination ::ng-deep .ngx-pagination {
     background-color: #9e9e9e;
-  }
+}
 
     
 

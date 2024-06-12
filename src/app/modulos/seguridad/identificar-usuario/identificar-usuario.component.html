@@ -4,9 +4,27 @@
 		<h1>Crear Cuenta</h1>
 		<input type="text" placeholder="Nombre" formControlName="nombre">
 		<input type="text" placeholder="Apellidos" formControlName="apellidos">
+
 		<input type="phone" placeholder="Teléfono" formControlName="telefono">
+		<span *ngIf="this.signUpForm.get('telefono')?.errors?.['pattern']">
+			(El número de teléfono no es válido)
+		</span>
 		<input type="email" placeholder="Correo" formControlName="email">
-		<input type="password" placeholder="Contraseña" formControlName="contrasena">
+		<span *ngIf="this.signUpForm.get('email')?.errors?.['email']">
+			(El email no es válido)
+		</span>
+
+
+		<div class="password-input-container">
+			<input type="password" placeholder="Contraseña" formControlName="password">
+			<i class="material-icons" (click)="togglePasswordVisibilityR($event)">{{ passwordVisible ? 'visibility_off' : 'visibility' }}</i>
+		</div>
+
+		<span *ngIf="this.signUpForm.get('password')?.errors?.['pattern']  || this.signUpForm.get('password')?.errors?.['minlength']">
+			(La contraseña debe tener al menos 8 caracteres, 1 minuscúla, 1 mayúscula)
+		</span>
+		
+
 		<button type="submit" [disabled]="signUpForm.invalid" (click)="onSubmitSignUp()">Registrarse</button>
 	  </form>
 	</div>
@@ -15,7 +33,11 @@
 	  <form [formGroup]="signInForm" (ngSubmit)="onSubmitSignIn()">
 		<h1>Iniciar Sesión</h1>
 		<input type="email" placeholder="Correo" formControlName="email">
-		<input type="password" placeholder="Contraseña" formControlName="contrasena">
+
+		<div class="password-input-container">
+			<input type="password" placeholder="Contraseña" formControlName="contrasena">
+			<i class="material-icons" (click)="togglePasswordVisibility($event)">{{ passwordVisible ? 'visibility_off' : 'visibility' }}</i>
+		</div>
 		<a href="#">¿Olvidó su contraseña?</a>
 		<button type="submit" [disabled]="signInForm.invalid" (click)="onSubmitSignIn()">Iniciar sesión</button>
 	  </form>

@@ -1,6 +1,6 @@
 import { NgModule } from '@angular/core';
 import { BrowserModule } from '@angular/platform-browser';
-import { HttpClientModule } from '@angular/common/http'; // Add this line
+import { HTTP_INTERCEPTORS, HttpClientModule } from '@angular/common/http'; // Add this line
 
 import { AppRoutingModule } from './app-routing.module';
 import { AppComponent } from './app.component';
@@ -12,6 +12,7 @@ import { ErrorDeServidorComponent } from './publico/errores/error-de-servidor/er
 import { ReactiveFormsModule } from '@angular/forms';
 import { MenuLateralComponent } from './publico/pagina-maestra/menu-lateral/menu-lateral.component';
 import { NgxPaginationModule } from 'ngx-pagination';
+import { AuthInterceptor } from './core/interceptors/auth.interceptor';
 
 
 @NgModule({
@@ -31,7 +32,9 @@ import { NgxPaginationModule } from 'ngx-pagination';
     ReactiveFormsModule,
     NgxPaginationModule,
   ],
-  providers: [],
+  providers: [
+    { provide: HTTP_INTERCEPTORS, useClass: AuthInterceptor, multi: true},
+  ],
   bootstrap: [AppComponent]
 })
 export class AppModule { }

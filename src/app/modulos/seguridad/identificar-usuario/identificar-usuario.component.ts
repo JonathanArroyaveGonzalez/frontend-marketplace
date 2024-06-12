@@ -15,6 +15,7 @@ export class IdentificarUsuarioComponent implements OnInit, AfterViewInit {
   private container!: HTMLElement;
   signUpForm: FormGroup = new FormGroup({});
   signInForm: FormGroup = new FormGroup({});
+  passwordVisible = false;
 
   constructor(
     private elementRef: ElementRef,
@@ -22,6 +23,7 @@ export class IdentificarUsuarioComponent implements OnInit, AfterViewInit {
     private fb: FormBuilder,
     private fb2: FormBuilder,
     private router: Router
+    
   ) { }
 
   ngOnInit() {
@@ -41,9 +43,9 @@ export class IdentificarUsuarioComponent implements OnInit, AfterViewInit {
     this.signUpForm = this.fb.group({
       nombre: ['', Validators.required],
       apellidos: ['', Validators.required],
-      telefono: ['', [Validators.required, Validators.maxLength(10)]],
+      telefono: ['', [Validators.required, Validators.pattern(/^[0-9]{10}$/)]],
       email: ['', [Validators.required, Validators.email]],
-      contrasena: ['', [Validators.required, Validators.minLength(8)]] // Mínimo 8 caracteres
+      password: ['', [Validators.required, Validators.minLength(8),Validators.pattern(/(?=.*[a-z])(?=.*[A-Z]).+/)]] // Mínimo 8 caracteres
    });
   // Initialize sign in form
   this.signInForm = this.fb2.group({
@@ -138,7 +140,7 @@ export class IdentificarUsuarioComponent implements OnInit, AfterViewInit {
         lastName: camposRegistro['apellidos'].value,
         email: camposRegistro['email'].value,
         phone: camposRegistro['telefono'].value,
-        password: camposRegistro['contrasena'].value,
+        password: camposRegistro['password'].value,
       };
     }else{
       datos = {
@@ -157,6 +159,24 @@ export class IdentificarUsuarioComponent implements OnInit, AfterViewInit {
 
   get ObtenerFormGroupSignUp() {
     return this.signUpForm.controls;
+  }
+
+  togglePasswordVisibility(event: Event) {
+    event.stopPropagation(); // Prevent bubbling
+    this.passwordVisible = !this.passwordVisible;
+    const inputElement = document.querySelector('[formControlName="contrasena"]') as HTMLInputElement;
+    if (inputElement) {
+      inputElement.type = this.passwordVisible ? 'text' : 'password';
+    }
+  }
+
+  togglePasswordVisibilityR(event: Event) {
+    event.stopPropagation(); // Prevent bubbling
+    this.passwordVisible = !this.passwordVisible;
+    const inputElement = document.querySelector('[formControlName="password"]') as HTMLInputElement;
+    if (inputElement) {
+      inputElement.type = this.passwordVisible ? 'text' : 'password';
+    }
   }
 }
 

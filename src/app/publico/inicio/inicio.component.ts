@@ -72,4 +72,8 @@ export class InicioComponent implements OnInit, AfterViewInit {
     return (post.images ?? []).length > 0; // Si post.images es null o undefined, usa un array vacío
   }
 
+  agregarAlCarrito(id: string) {
+    this.servicioLogicaNegocio.AgregarProductosAlCarrito(id);
+  }
+
 }
