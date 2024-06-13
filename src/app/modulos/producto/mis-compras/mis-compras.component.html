@@ -20,15 +20,16 @@
       <td *ngIf="r.status == 0">Activo</td>
       <td *ngIf="r.status == 2">Finalizado</td>
       <td *ngIf="r.status == 1">Cancelado</td>
+      <td *ngIf="r.status == 3">Terminado</td>
       
       <td>
         <a
         (click)="this.CalificarOrden(r.id);"
           class="btn orange"
-          *ngIf="r.status !== 2">Calificar</a
+          *ngIf="r.status != 3 && r.status != 1">Calificar</a
         >&nbsp;
         <a (click)="this.CancelarOrden(r.id)" class="btn red"
-          *ngIf="r.status != 1" >Cancelar Pedido</a
+          *ngIf="r.status == 0" >Cancelar Pedido</a
         >
       </td>
     </tr>
