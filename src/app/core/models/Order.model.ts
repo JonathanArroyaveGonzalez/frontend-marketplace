@@ -1,5 +1,5 @@
 export class OrderModel{
-   quantity?: number;
+  quantity?: number;
   userId?: string;
   postId?: string;
     

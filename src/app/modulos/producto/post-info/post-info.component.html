@@ -18,9 +18,9 @@
         
         <label for="cantidad" class="input-field col s1">Unidades</label>
         <div class="row">
-            <input type="number" name="cantidad" id="cantidad" value="0" class="input-field col s1">
+            <input type="number" name="cantidad" id="cantidad" [(ngModel)]="cantidadProducto" value="1" class="input-field col s1">
           
-            <button type="button"  class="input-field col s6  waves-effect waves-light btn-large blue-grey darken-3" style="margin-left: 100px;">
+            <button type="button"  class="input-field col s6  waves-effect waves-light btn-large blue-grey darken-3" style="margin-left: 100px;" (click)="this.agregarAlCarrito();">
               <img src="http://co0kie.github.io/codepen/nike-product-page/cart.png" alt="">
               <span>añadir al carrito</span>
             </button>

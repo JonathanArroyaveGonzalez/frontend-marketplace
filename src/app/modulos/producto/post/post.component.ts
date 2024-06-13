@@ -1,6 +1,7 @@
 import { Component, OnInit } from '@angular/core';
 import { FormBuilder, FormGroup, Validators } from '@angular/forms';
 import { LogicaNegocioService } from 'src/app/servicios/logica-negocio.service';
+import { SeguridadService } from 'src/app/servicios/seguridad.service';
 declare let M: any;
 @Component({
     selector: 'app-post',
@@ -12,8 +13,13 @@ export class PostComponent implements OnInit {
     images: File[] = []; // Almacena las imágenes en base64
     imagePreviews: string[] = []; // Almacena las URLs para las previsualizaciones
     postID: string = '';
+    userId: string = '';
 
-    constructor(private fb: FormBuilder, private servicioLogicaNegocio: LogicaNegocioService) {
+    constructor(
+        private fb: FormBuilder, 
+        private servicioLogicaNegocio: LogicaNegocioService,
+        private servicioSeguridad: SeguridadService
+    ) {
         this.form = this.fb.group({
             nombre: ['', Validators.required],
             precio: ['', Validators.required],
@@ -25,6 +31,7 @@ export class PostComponent implements OnInit {
 
     ngOnInit(): void {
         M.AutoInit();
+        this.userId = this.servicioSeguridad.datosUsuarioValidado.value.id ?? '';
     } 
 
     onFileChange(event: Event) {
@@ -63,7 +70,8 @@ export class PostComponent implements OnInit {
                 "price": this.form.get('precio')?.value,
                 "description": this.form.get('descripcion')?.value,
                 "stock": this.form.get('stock')?.value,
-                "status": 1
+                "status": 1,
+                "createdUser": this.servicioSeguridad.datosUsuarioValidado.value.id
             }
 
             this.servicioLogicaNegocio.CrearPost(DataPost).subscribe({

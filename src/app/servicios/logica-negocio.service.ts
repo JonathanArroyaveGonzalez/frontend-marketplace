@@ -2,10 +2,12 @@ import { Injectable } from '@angular/core';
 import { ConfiguracionRutasBackend } from '../config/configuracion.rutas.backend';
 import { HttpClient } from '@angular/common/http';
 import { PostModel } from '../core/models/Post.model';
-import { Observable } from 'rxjs';
+import { BehaviorSubject, Observable } from 'rxjs';
 import { ConfiguracionPaginacion } from '../config/configuracion.paginacion';
 import { PaginadorPostModel } from '../core/models/Paginador.post.model';
 import { PostIdModel } from '../core/models/Post.id.model';
+import { OrderModel } from '../core/models/Order.model';
+import { CarritoItemModel } from '../core/models/Carrito.item.model';
 
 @Injectable({
   providedIn: 'root'
@@ -13,10 +15,26 @@ import { PostIdModel } from '../core/models/Post.id.model';
 export class LogicaNegocioService {
 
 urlBase: string = ConfiguracionRutasBackend.urlBackend;
-shopingCart: string[] = [];
+
+private shopingCartSubject = new BehaviorSubject<CarritoItemModel[]>(this.cargarCarritoDesdeLocalStorage()); // Carga inicial desde localStorage
+shopingCart$ = this.shopingCartSubject.asObservable();
 
 
 constructor(private http:HttpClient) { }
+
+
+/**
+ * Función para listar las ordenes de un cliente por su id
+ * @param id Identificador del usuario
+ * @returns Lista de ordenes
+ */
+ListarOrdenes(id: string): Observable<OrderModel[]> {
+  // Usar FormData para enviar el parametro id_user
+  const formData = new FormData();
+  formData.append('user_id', id);
+  const url = `${this.urlBase}order/getOrderByUser?user_id=${id}`;
+  return this.http.get<OrderModel[]>(url);
+}
 
 /**
  * 
@@ -61,9 +79,50 @@ CargarImagenesPost(imageFile: File, postId: string): Observable<any> {
   return this.http.post<any>(url, formData); // Enviar formData
 }
 
-AgregarProductosAlCarrito(id: string): void {
-  this.shopingCart.push(id);  
+/**
+ * Creacion de un pedido para un cliente
+ * @param datos Datos del pedido
+ * @returns 
+ */
+CrearPedido(datos: OrderModel): Observable<any> {
+  return this.http.post<any>(`${this.urlBase}order/createOrder`,datos);
 }
+
+
+ActualizarStatusPedido(datos: any): Observable<any> {
+  return this.http.put<any>(`${this.urlBase}order/updateOrderStatus`,datos);
+}
+
+
+/* Carrito de compras  */
+AgregarProductosAlCarrito(id: string, cantidad: number): void {
+  const currentCart = this.shopingCartSubject.value;
+  const existingItem = currentCart.find(item => item.id === id);
+
+  if (existingItem) {
+    existingItem.cantidad += cantidad;
+  } else {
+    currentCart.push({ id, cantidad });
+  }
+
+  this.shopingCartSubject.next(currentCart);
+  this.guardarCarritoEnLocalStorage(currentCart); // Guarda en localStorage
+}
+
+LimpiarCarrito() {
+  this.shopingCartSubject.next([]);
+  this.guardarCarritoEnLocalStorage([]); // Limpia en localStorage
+}
+
+private guardarCarritoEnLocalStorage(carrito: CarritoItemModel[]): void {
+  localStorage.setItem('carrito', JSON.stringify(carrito));
+}
+
+private cargarCarritoDesdeLocalStorage(): CarritoItemModel[] {
+  const carritoGuardado = localStorage.getItem('carrito');
+  return carritoGuardado ? JSON.parse(carritoGuardado) : [];
+}
+
 
 }
 

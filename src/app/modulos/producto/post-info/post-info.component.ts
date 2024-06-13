@@ -16,6 +16,7 @@ export class PostInfoComponent implements OnInit {
   urlImage: string = "";
   qualification: boolean = false;
   qualificationList: QualificationModel[]= [];
+  cantidadProducto = 1;
 
   constructor(
     private route: ActivatedRoute,
@@ -62,6 +63,12 @@ export class PostInfoComponent implements OnInit {
 
   createArray(length: number): number[] {
     return Array.from({ length }, (_, i) => i + 1);
+  }
+
+  agregarAlCarrito() {
+
+    this.logicaNegocioService.AgregarProductosAlCarrito(this.post?.id ?? '',this.cantidadProducto);
+    alert('Producto agregado al carrito');
   }
   
 }

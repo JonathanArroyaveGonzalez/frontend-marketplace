@@ -73,7 +73,8 @@ export class InicioComponent implements OnInit, AfterViewInit {
   }
 
   agregarAlCarrito(id: string) {
-    this.servicioLogicaNegocio.AgregarProductosAlCarrito(id);
+    this.servicioLogicaNegocio.AgregarProductosAlCarrito(id,1);
+    alert('Producto agregado al carrito');
   }
 
 }
