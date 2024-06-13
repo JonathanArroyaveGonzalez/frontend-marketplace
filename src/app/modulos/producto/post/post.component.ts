@@ -94,7 +94,7 @@ export class PostComponent implements OnInit {
                         showConfirmButton: false,
                         timer: 1000
                       });
-                      this.router.navigate(['/post/post-info/', this.postID]);
+                      this.router.navigate(['/producto/post-info/', this.postID]);
                 },
                 error: (error) => {
                     Swal.fire({
