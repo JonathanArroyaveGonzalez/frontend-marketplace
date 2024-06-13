@@ -23,9 +23,9 @@
       
       <td>
         <a
-          routerLink="/parametros/cliente-editar/{{r.postId}}"
+        (click)="this.CalificarOrden(r.id);"
           class="btn orange"
-          *ngIf="r.status == 1">Calificar</a
+          *ngIf="r.status !== 1">Calificar</a
         >&nbsp;
         <a (click)="this.CancelarOrden(r.id)" class="btn red"
           *ngIf="r.status != 2" >Cancelar Pedido</a

@@ -93,6 +93,11 @@ ActualizarStatusPedido(datos: any): Observable<any> {
   return this.http.put<any>(`${this.urlBase}order/updateOrderStatus`,datos);
 }
 
+/* Calificacion de productos  */
+CalficarProducto(datos: any): Observable<any> {
+  return this.http.post<any>(`${this.urlBase}qualification/createQualification`,datos);
+}
+
 
 /* Carrito de compras  */
 AgregarProductosAlCarrito(id: string, cantidad: number): void {
