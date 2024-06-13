@@ -1,5 +1,6 @@
 import { Component, OnInit } from '@angular/core';
 import { FormBuilder, FormGroup, Validators } from '@angular/forms';
+import { Router } from '@angular/router';
 import { LogicaNegocioService } from 'src/app/servicios/logica-negocio.service';
 import { SeguridadService } from 'src/app/servicios/seguridad.service';
 import Swal from 'sweetalert2';
@@ -19,7 +20,8 @@ export class PostComponent implements OnInit {
     constructor(
         private fb: FormBuilder, 
         private servicioLogicaNegocio: LogicaNegocioService,
-        private servicioSeguridad: SeguridadService
+        private servicioSeguridad: SeguridadService,
+        private router: Router
     ) {
         this.form = this.fb.group({
             nombre: ['', Validators.required],
@@ -85,9 +87,23 @@ export class PostComponent implements OnInit {
                 next: (data) => {
                     this.postID = data;
                     this.guardarImagenes();
+                    Swal.fire({
+                        position: "center",
+                        icon: "success",
+                        title: "Se ha guardado su nueva publicación.",
+                        showConfirmButton: false,
+                        timer: 1000
+                      });
+                      this.router.navigate(['/post/post-info/', this.postID]);
                 },
                 error: (error) => {
-                    console.log(error);
+                    Swal.fire({
+                        position: "center",
+                        icon: "error",
+                        title: "Se ha producido un error al guardar su publicacion, Intentelo de nuevo mas tarde.",
+                        showConfirmButton: false,
+                        timer: 1000
+                      });
                 }
             })
         
