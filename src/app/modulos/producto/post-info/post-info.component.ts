@@ -3,6 +3,7 @@ import { ActivatedRoute } from '@angular/router';
 import { PostIdModel } from 'src/app/core/models/Post.id.model';
 import { QualificationModel } from 'src/app/core/models/Qualification.model';
 import { LogicaNegocioService } from 'src/app/servicios/logica-negocio.service';
+import Swal from 'sweetalert2';
 
 @Component({
   selector: 'app-post-info',
@@ -68,7 +69,13 @@ export class PostInfoComponent implements OnInit {
   agregarAlCarrito() {
 
     this.logicaNegocioService.AgregarProductosAlCarrito(this.post?.id ?? '',this.cantidadProducto);
-    alert('Producto agregado al carrito');
+    Swal.fire({
+      position: "center",
+      icon: "success",
+      title: "Producto agregado al carrito",
+      showConfirmButton: false,
+      timer: 1000
+    });
   }
   
 }

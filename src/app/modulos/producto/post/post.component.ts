@@ -2,6 +2,7 @@ import { Component, OnInit } from '@angular/core';
 import { FormBuilder, FormGroup, Validators } from '@angular/forms';
 import { LogicaNegocioService } from 'src/app/servicios/logica-negocio.service';
 import { SeguridadService } from 'src/app/servicios/seguridad.service';
+import Swal from 'sweetalert2';
 declare let M: any;
 @Component({
     selector: 'app-post',
@@ -56,7 +57,13 @@ export class PostComponent implements OnInit {
           }
 
           if (files.length > maxAllowedFiles) {
-              alert(`Solo se permiten ${maxAllowedFiles} fotos.`);
+              Swal.fire({
+                position: "center",
+                icon: "warning",
+                title: `Solo se permiten ${maxAllowedFiles} fotos.`,
+                showConfirmButton: false,
+                timer: 1000
+              });
           }
       }
   }
@@ -93,7 +100,13 @@ export class PostComponent implements OnInit {
                     console.log(data);
                 },
                 error: (error) => {
-                    alert("Se produjo un error al cargar la imagenes")
+                    Swal.fire({
+                        position: "center",
+                        icon: "error",
+                        title: "Se produjo un error al cargar la imagenes",
+                        showConfirmButton: false,
+                        timer: 1000
+                      });
                 }
             })
         });

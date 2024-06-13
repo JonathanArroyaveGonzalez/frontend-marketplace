@@ -5,6 +5,7 @@ import { PaginadorPostModel } from 'src/app/core/models/Paginador.post.model';
 import { PostModel } from 'src/app/core/models/Post.model';
 import { LogicaNegocioService } from 'src/app/servicios/logica-negocio.service';
 import { SeguridadService } from 'src/app/servicios/seguridad.service';
+import Swal from 'sweetalert2';
 declare let M: any;
 @Component({
   selector: 'app-inicio',
@@ -55,7 +56,13 @@ export class InicioComponent implements OnInit, AfterViewInit {
       },
       error: (error: any) => {
         console.log(error);
-        alert('Error al listar los productos');
+        Swal.fire({
+          position: "center",
+          icon: "error",
+          title: "Error al listar los productos",
+          showConfirmButton: false,
+          timer: 1000
+        });
       }
     });
   }
@@ -74,7 +81,13 @@ export class InicioComponent implements OnInit, AfterViewInit {
 
   agregarAlCarrito(id: string) {
     this.servicioLogicaNegocio.AgregarProductosAlCarrito(id,1);
-    alert('Producto agregado al carrito');
+    Swal.fire({
+      position: "center",
+      icon: "success",
+      title: "Producto agregado al carrito",
+      showConfirmButton: false,
+      timer: 1000
+    });
   }
 
 }

@@ -5,6 +5,7 @@ import { Router } from '@angular/router';
 import { UsuarioValidadoModel } from 'src/app/core/models/UsuarioValidado.model';
 import { HttpErrorResponse } from '@angular/common/http';
 import { UsuarioModel } from 'src/app/core/models/Usuario.model';
+import Swal from 'sweetalert2';
 
 @Component({
   selector: 'app-identificar-usuario',
@@ -61,19 +62,37 @@ export class IdentificarUsuarioComponent implements OnInit, AfterViewInit {
       this.servicioSeguridad.RegistrarUsuario(datos).subscribe({
         next: (respuesta: UsuarioModel) => {
           
-          alert(`Hola ${respuesta.name} ${respuesta.lastName}, tu registro fue exitoso. ¡Bienvenido!`);
+          Swal.fire({
+            position: "center",
+            icon: "success",
+            title: `Hola ${respuesta.name} ${respuesta.lastName}, tu registro fue exitoso. ¡Bienvenido!`,
+            showConfirmButton: false,
+            timer: 1000
+          });
           this.container.classList.remove("right-panel-active");
         },
         error: (err: HttpErrorResponse) => { 
-            alert('Se ha producido un error al registrar el usuario. Por favor, inténtalo de nuevo más tarde.');
-        }
+            Swal.fire({
+              position: "center",
+              icon: "error",
+              title: "Se ha producido un error al registrar el usuario. Por favor, inténtalo de nuevo más tarde.",
+              showConfirmButton: false,
+              timer: 1000
+            });
+          }
       });
   
       // 5. Reset formulario
       this.signUpForm.reset(); 
     } else {
       // 6. Formulario invalido
-      alert('Por favor, complete el formulario correctamente de Registro.');
+      Swal.fire({
+        position: "center",
+        icon: "warning",
+        title: "Por favor, complete el formulario de Registro correctamente.",
+        showConfirmButton: false,
+        timer: 1000
+      });
     }
   }
 
@@ -84,19 +103,44 @@ export class IdentificarUsuarioComponent implements OnInit, AfterViewInit {
       this.servicioSeguridad.IdentificarUsuario(datos).subscribe({
         next: (respuesta: UsuarioValidadoModel) => {
           
-          alert(`Hola ${respuesta.name} ${respuesta.lastName}. ¡Bienvenido de nuevo!`);
+          Swal.fire({
+            position: "center",
+            icon: "success",
+            title: `Hola ${respuesta.name} ${respuesta.lastName}. ¡Bienvenido de nuevo!`,
+            showConfirmButton: false,
+            timer: 1000
+          });
           this.servicioSeguridad.AlmacenarDatosUsuarioValidado(respuesta); 
           this.router.navigate(['/']); // Navegar  hacia inicio
         },
         error: (err: HttpErrorResponse) => { 
           if (err.error && err.error.message === 'Invalid credentials') {
-            alert('Credenciales incorrectas. Por favor, inténtalo de nuevo.');
+            Swal.fire({
+              position: "center",
+              icon: "error",
+              title: "Credenciales incorrectas. Por favor, inténtalo de nuevo.",
+              showConfirmButton: false,
+              timer: 1000
+            });
           } else if (err.error && err.error.message === 'User does not exist') {
-            alert('El usuario no existe. Por favor, regístrate.');
+            Swal.fire({
+              position: "center",
+              icon: "error",
+              title: "El usuario no existe. Por favor, regístrate.",
+              showConfirmButton: false,
+              timer: 1000
+            });
           } else {
             
             console.error('Error inesperado al iniciar sesión:', err); 
-            alert('Se ha producido un error al iniciar sesión. Por favor, inténtalo de nuevo más tarde.');
+            
+            Swal.fire({
+              position: "center",
+              icon: "error",
+              title: "Se ha producido un error al iniciar sesión. Por favor, inténtalo de nuevo más tarde.",
+              showConfirmButton: false,
+              timer: 1000
+            });
           }
         }
       });
@@ -105,7 +149,14 @@ export class IdentificarUsuarioComponent implements OnInit, AfterViewInit {
       this.signInForm.reset(); 
     } else {
       // 6. Formulario invalido
-      alert('Por favor, complete el formulario correctamente Login.');
+      Swal.fire({
+        position: "center",
+        icon: "warning",
+        title: "Por favor, complete el formulario correctamente Login.",
+        showConfirmButton: false,
+        timer: 1000
+      });
+      
     }
   }
   
@@ -179,4 +230,5 @@ export class IdentificarUsuarioComponent implements OnInit, AfterViewInit {
     }
   }
 }
+
 
