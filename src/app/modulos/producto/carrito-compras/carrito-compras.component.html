@@ -1,0 +1,47 @@
+<br />
+<a routerLink="/" class="btn" *ngIf !="this.listItem">Ir a comprar  </a>
+<br />
+<table  *ngIf ="this.listItem">
+  <thead>
+    <tr>
+      <th>Producto</th>
+      <th>Cantidad</th>
+      <th>Total</th>
+      
+    </tr>
+  </thead>
+  <tbody>
+    <tr *ngFor="let r of this.listItem">
+      <td>{{ r.nombre }}</td>
+      <td>{{ r.cantidad}}</td>
+      <td>{{ r.total}}</td>
+      
+      <td>
+        
+        <a (click)="this.eliminarItemList(r.id)" class="btn red"
+          >Eliminar del carrito</a
+        >
+      </td>
+    </tr>
+    <tr>
+      <td></td>
+      <th>Total</th>
+      <td>{{this.totalCompra}}</td>
+      <td><a (click)="this.RealizarPedido();" class="btn" *ngIf="this.listItem" >Realizar Pedido</a></td>
+    </tr>
+    
+  </tbody>
+  
+</table>
+<br>
+
+
+<br>
+<br>
+
+
+<p *ngIf !="this.listItem">
+  Aún no tienes compras.
+</p>
+
+

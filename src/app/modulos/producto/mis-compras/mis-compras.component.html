@@ -1,3 +1,45 @@
-<p>
-  mis-compras works!
+
+ <br />
+<a routerLink="/" class="btn" *ngIf="this.ordenesVacias">Ir a comprar  </a>
+<br />
+<table *ngIf ="this.ordenesVacias == false">
+  <thead>
+    <tr>
+      <th>Total</th>
+      <th>Cantidad</th>
+      <th>Id Producto</th>
+      <th>Estado</th>
+      
+    </tr>
+  </thead>
+  <tbody>
+    <tr *ngFor="let r of ordenes">
+      <td>{{r.total_amount}}</td>
+      <td>{{ r.quantity }}</td>
+      <td>{{ r.post_id }}</td>
+      <td *ngIf="r.status == 0">Activo</td>
+      <td *ngIf="r.status == 1">Finalizado</td>
+      <td *ngIf="r.status == 2">Cancelado</td>
+      
+      <td>
+        <a
+          routerLink="/parametros/cliente-editar/{{r.postId}}"
+          class="btn orange"
+          *ngIf="r.status == 1">Calificar</a
+        >&nbsp;
+        <a (click)="this.CancelarOrden(r.id)" class="btn red"
+          *ngIf="r.status != 2" >Cancelar Pedido</a
+        >
+      </td>
+    </tr>
+    <tr>
+    </tr>
+  </tbody>
+</table>
+<br>
+<br> 
+
+
+<p *ngIf ="this.ordenesVacias">
+  Aún no tienes compras.
 </p>
