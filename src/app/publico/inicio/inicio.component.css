@@ -57,6 +57,43 @@
     background-color: #9e9e9e;
 }
 
+
+/* Estilos para el fondo  */
+.fondo {
+    /* Ajusta la altura según tus necesidades */
+    height: 100%;
+  
+    /* Estilos de fondo */
+    background-size: cover; /* Cubre todo el contenedor */
+    background-position: center; /* Centra la imagen */
+    background-repeat: no-repeat; /* Evita que se repita */
+  
+    /* Aplica el filtro blur */
+    backdrop-filter: invert(80%);/* Ajusta el valor para controlar la intensidad del desenfoque */
+  
+    /* Posicionamiento del contenido */
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    align-items: center;
+  
+    /* Estilos para el texto */
+    color: white; /* Asegúrate de que el texto sea visible sobre el fondo desenfocado */
+    text-align: center;
+  }
+  
+  /* Estilos para la imagen dentro del contenedor (opcional) */
+  .fondo img {
+    max-width: 50%;
+    border-radius: 10px;
+    margin: 0 auto;
+  }
+
+  .fondo h2 {
+    font-size: 2rem;
+    font-weight: 700;
+  }
+  
     
 
   

@@ -128,9 +128,16 @@ private cargarCarritoDesdeLocalStorage(): CarritoItemModel[] {
   return carritoGuardado ? JSON.parse(carritoGuardado) : [];
 }
 
-
+ListarPostUsuario(id: string): Observable<PostModel[]> {
+  const url = `${this.urlBase}post/getPostByUser?user_id=${id}`;
+  return this.http.get<PostModel[]>(url);
 }
 
 
+ActualizarStatusPost(datos: any): Observable<any> {
+  return this.http.put<any>(`${this.urlBase}post/editPost`,datos);
+}
+
+}
 
 

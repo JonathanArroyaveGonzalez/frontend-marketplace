@@ -1,4 +1,5 @@
 import { Component, OnInit } from '@angular/core';
+import { Router } from '@angular/router';
 import { forkJoin } from 'rxjs';
 import { CarritoItemListModel } from 'src/app/core/models/Carrito.item.list.model';
 import { CarritoItemModel } from 'src/app/core/models/Carrito.item.model';
@@ -6,6 +7,7 @@ import { OrderModel } from 'src/app/core/models/Order.model';
 import { PostIdModel } from 'src/app/core/models/Post.id.model';
 import { LogicaNegocioService } from 'src/app/servicios/logica-negocio.service';
 import { SeguridadService } from 'src/app/servicios/seguridad.service';
+import Swal from 'sweetalert2';
 
 @Component({
   selector: 'app-carrito-compras',
@@ -15,6 +17,7 @@ import { SeguridadService } from 'src/app/servicios/seguridad.service';
 export class CarritoComprasComponent implements OnInit {
   constructor(private LogicaDeNegocioService: LogicaNegocioService,
               private SeguridadService: SeguridadService,
+              private Router: Router,
              ) { }
 
   shopingCart: CarritoItemModel[] = [];
@@ -68,10 +71,24 @@ export class CarritoComprasComponent implements OnInit {
 
       this.LogicaDeNegocioService.CrearPedido(orden).subscribe({
         next: (respuesta: OrderModel) => {
-          console.log('Orden creada:', respuesta);
+          Swal.fire({
+            position: "center",
+            icon: "success",
+            title: "Orden Creada con exito.",
+            showConfirmButton: false,
+            timer: 1500
+          });
+          this.LogicaDeNegocioService.LimpiarCarrito(); // Vaciar el carrito
+          this.Router.navigate(['/producto/mis-compras']); // Navegar hacia mis compras
         },
         error: (error: any) => {
-          console.error('Error al crear la orden:', error);
+          Swal.fire({
+            position: "center",
+            icon: "error",
+            title: "Se produjo un error al crear el pedido, Intentelo de nuevo mas tarde.",
+            showConfirmButton: false,
+            timer: 1000
+          });
         }
       });
 

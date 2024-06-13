@@ -1,14 +1,15 @@
-<h2 >Productos destacados</h2>
 
-<div class="carousel carousel-slider center">
-  <div class="carousel-item  grey darken-1 white-text" *ngFor="let producto of productosDestacados">
-    <h2>{{ producto.nombre }}</h2>
-    <p class="white-text">{{ producto.descripcion }}</p>
-    <img src={{producto.imagen}} alt="{{ producto.nombre }}" class="responsive-img" style="max-width: 50%; border-radius: 10px;" > 
+<div class="carousel carousel-slider">
+  <div class="carousel-item  grey darken-1 white-text" *ngFor="let categoria of categorias" >
+    <div [style.background-image]="'url(' + categoria.imagen + ')'" class="fondo">
+      <h2 >{{ categoria.nombre }}</h2>
+      <img src={{categoria.imagen}} alt="{{ categoria.nombre }}" class="responsive-img" style="max-width: 50%; border-radius: 10px; " > 
+  </div>
   </div>
 </div>
 
-
+<br>
+<br>
 
 <div class="container">
   <div class="section" >

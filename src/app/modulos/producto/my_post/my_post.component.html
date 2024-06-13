@@ -1,3 +1,83 @@
-<p>
-  my_post works!
+<h2>Tus publicaciones</h2>
+<table *ngIf ="this.postVacio == false">
+  <thead>
+    <tr>
+      <th>Nombre</th>
+      <th>Precio</th>
+      <th>Stock</th>
+      <th>Estado</th>
+      
+    </tr>
+  </thead>
+  <tbody>
+    <tr *ngFor="let r of postsList">
+      <td>{{r.name}}</td>
+      <td>{{ r.price | currency:'COP':'symbol-narrow':'1.0-0'}}</td>
+      <td>{{ r.stock}}</td>
+      <td *ngIf="r.status == 1">Activo</td>
+      <td *ngIf="r.status == 0">Pausado</td>
+      
+      <td>
+        <a
+        (click)="this.VerOrdenesPost(r.id ?? '');"
+          class="btn green"
+          *ngIf="this.postVacio == false && r.status == 1 ">Ver Ordenes</a
+        >&nbsp;
+        <a (click)="this.PausarPost(r.id ?? '')" class="btn orange"
+          *ngIf="r.status == 1" >Pausar Publicación</a
+        >&nbsp;
+        <a routerLink="/producto/post-info/{{ r.id }}" class="btn blue"
+          *ngIf="r.status == 1" >Ver Publicación</a
+        >
+      </td>
+    </tr>
+    <tr>
+    </tr>
+  </tbody>
+</table>
+<br>
+<br> 
+
+
+<p *ngIf ="this.postVacio == true">
+  Aún no tienes ordenes activas para esta publicación.
 </p>
+
+<h2 *ngIf="mostrarOrdenes">Ordenes</h2>
+
+<table *ngIf ="mostrarOrdenes">
+  <thead>
+    <tr>
+      <th>Total</th>
+      <th>Cantidad</th>
+      <th>Id Producto</th>
+      <th>Estado</th>
+      
+    </tr>
+  </thead>
+  <tbody>
+    <tr *ngFor="let r of this.ordenesList">
+      <td>{{r.total_amount | currency:'COP':'symbol-narrow':'1.0-0' }} </td>
+      <td>{{ r.quantity }}</td>
+      <td>{{ r.post_id }}</td>
+      <td *ngIf="r.status == 0">Activo</td>
+      <td *ngIf="r.status == 2">Finalizado</td>
+      <td *ngIf="r.status == 1">Cancelado</td>
+      
+      <td>
+        <a
+        (click)="this.ActualizarEstadoOrden(r.id, 2);"
+          class="btn green"
+          *ngIf="r.status != 1 && r.status != 2">Marcar como Finalizado</a
+        >&nbsp;
+        <a (click)="this.ActualizarEstadoOrden(r.id, 1)" class="btn red"
+          *ngIf="r.status != 1 && r.status != 2" >Cancelar Pedido</a
+        >
+      </td>
+    </tr>
+    <tr>
+    </tr>
+  </tbody>
+</table>
+<br>
+<br> 
