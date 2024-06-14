@@ -10,6 +10,7 @@ export class PostIdModel{
     name?: string;
     price?: number;
     stock?: number;
+    phone?: string;
     creation_date?: string;
     images?: ImagenModel[];
     qualifications?: QualificationModel[][];

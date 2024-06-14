@@ -3,6 +3,7 @@ import { ActivatedRoute, Router } from '@angular/router';
 import { PostIdModel } from 'src/app/core/models/Post.id.model';
 import { QualificationModel } from 'src/app/core/models/Qualification.model';
 import { LogicaNegocioService } from 'src/app/servicios/logica-negocio.service';
+import { SeguridadService } from 'src/app/servicios/seguridad.service';
 import Swal from 'sweetalert2';
 
 declare let M: any;
@@ -20,11 +21,13 @@ export class PostInfoComponent implements OnInit {
   qualification: boolean = false;
   qualificationList: QualificationModel[]= [];
   cantidadProducto = 1;
+  phone: string = this.post?.phone ?? '';
 
   constructor(
     private route: ActivatedRoute,
     private Router: Router,
-    private logicaNegocioService: LogicaNegocioService
+    private logicaNegocioService: LogicaNegocioService,
+    private seguridadService: SeguridadService
   ) {
     this.recordId = this.route.snapshot.params["id"];
   }
@@ -96,6 +99,8 @@ export class PostInfoComponent implements OnInit {
       }
     });
   }
+
+  
   
 }
 
