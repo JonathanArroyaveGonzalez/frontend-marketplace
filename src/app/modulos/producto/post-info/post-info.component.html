@@ -1,5 +1,4 @@
 <div class="container">
-  <!--   https://www.jerecho.com/codepen/nike-product-page/ -->
     <div class="product-image">
       <img src={{this.urlImage}} alt="" class="product-logo" style="height: 200px; width:200px;"> 
       <div class="dots">
@@ -12,23 +11,26 @@
     <div class="product-details">
       <header>
         <h1 class="title" style="text-align: center;">{{post?.name}}</h1>
+
         <div class="price">
-          <h4>{{post?.price | currency:'COP':'symbol-narrow':'1.0-0'}}</h4>
+          <h4> {{post?.price | currency:'COP':'symbol-narrow':'1.0-0'}}</h4>
         </div>
         
         <label for="cantidad" class="input-field col s1">Unidades</label>
         <div class="row">
             <input type="number" name="cantidad" id="cantidad" [(ngModel)]="cantidadProducto" value="1" class="input-field col s1">
 
-             <button type="button"  class="input-field col s6  waves-effect waves-light btn-large blue-grey darken-3" style="margin-left: 100px;" (click)="this.agregarAlCarrito();">
+             <button type="button"  class="input-field col s4  waves-effect waves-light btn-large blue-grey darken-3" style="margin-left: 100px;" (click)="this.agregarAlCarrito();">
               <i class="material-icons ">add_shopping_cart</i>
               <span>añadir al carrito</span>
             </button>
 
-            <a href="https://wa.me/+57{{this.post?.phone}}" target="_blank" class="input-field col s6  waves-effect waves-light btn-large blue-grey darken-3">
-              <i class="material-icons ">contact_phone</i> 
-              Contactar al vendedor por whatsapp </a>
-            
+            <div class="input-field col s2  waves-effect waves-light  " style="margin-left: 150px;" >
+              
+              <a href="https://wa.me/57{{post?.phone}}" target="_blank" >
+                <img [src]=this.whatsappUrl alt="WhatsAppIcon" style="height: 50px; width:50px;">
+              </a>
+            </div> 
         </div>
         
         
@@ -42,7 +44,7 @@
       <br>
       <div>
         <table>
-          <thead>Reseñas</thead>
+          <thead style="font-weight: bold;">Reseñas</thead>
           <tbody>
             <td>
               

@@ -21,7 +21,8 @@ export class PostInfoComponent implements OnInit {
   qualification: boolean = false;
   qualificationList: QualificationModel[]= [];
   cantidadProducto = 1;
-  phone: string = this.post?.phone ?? '';
+  whatsappUrl = "https://cdn-icons-png.flaticon.com/128/3536/3536445.png";
+  
 
   constructor(
     private route: ActivatedRoute,
@@ -41,7 +42,6 @@ export class PostInfoComponent implements OnInit {
     this.logicaNegocioService.ObtenerPost(this.recordId).subscribe({
       next: (respuesta: PostIdModel) => {
         this.post = respuesta;
-        this.phone =this.post?.phone ?? '';
         this.updateImage();
        
         if (this.post && this.post.qualifications && this.post.qualifications.length > 0) { 
@@ -77,6 +77,7 @@ export class PostInfoComponent implements OnInit {
   agregarAlCarrito() {
 
     this.logicaNegocioService.AgregarProductosAlCarrito(this.post?.id ?? '',this.cantidadProducto);
+    console.log(this.post?.id + "<--post id")
     Swal.fire({
       position: "center",
       icon: "success",

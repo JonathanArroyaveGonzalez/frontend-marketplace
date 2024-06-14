@@ -1,5 +1,6 @@
 import { Component, OnInit } from '@angular/core';
 import { Router } from '@angular/router';
+import { LogicaNegocioService } from 'src/app/servicios/logica-negocio.service';
 import { SeguridadService } from 'src/app/servicios/seguridad.service';
 
 @Component({
@@ -11,6 +12,7 @@ export class CerrarSeccionComponent implements OnInit {
 
   constructor(
     private servicioSeguridad: SeguridadService,
+    private logicaDeNegocioService: LogicaNegocioService,
     private router: Router
   ) { }
 
@@ -20,6 +22,7 @@ export class CerrarSeccionComponent implements OnInit {
   
   cerrarSesion(){
     this.servicioSeguridad.RemoverDatosUsuarioValidado();
+    this.logicaDeNegocioService.LimpiarCarrito();
     this.router.navigate([""]);
   }
 }
