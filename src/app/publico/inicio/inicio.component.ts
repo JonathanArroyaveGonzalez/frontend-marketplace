@@ -69,6 +69,7 @@ export class InicioComponent implements OnInit, AfterViewInit {
     this.servicioLogicaNegocio.ListarPost(this.pag).subscribe({
       next: (respuesta: PaginadorPostModel ) => {
         this.productList = respuesta.registros;
+        this.productList = this.productList.filter(post => post.status !== 0);
         this.total = respuesta.totalRegistros;
         console.log(this.productList);
       },

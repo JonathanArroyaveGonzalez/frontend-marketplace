@@ -3,7 +3,8 @@ import { PostModel } from 'src/app/core/models/Post.model';
 import { LogicaNegocioService } from 'src/app/servicios/logica-negocio.service';
 import { SeguridadService } from 'src/app/servicios/seguridad.service';
 import Swal from 'sweetalert2';
-
+import { forkJoin } from 'rxjs';
+import { PostIdModel } from 'src/app/core/models/Post.id.model';
 @Component({
   selector: 'app-my_post',
   templateUrl: './my_post.component.html',
@@ -41,13 +42,47 @@ export class My_postComponent implements OnInit {
       });
   }
 
-  VerOrdenesPost(id: string){
+  /* VerOrdenesPost(id: string){
     const postEncontrado = this.postsList.find(post => post.id === id);
     this.ordenesList = postEncontrado?.orders ?? [];
     if (this.ordenesList.length > 0){
     this.mostrarOrdenes = true;
     }
-  }
+  } */
+    
+    
+    VerOrdenesPost(id: string) {
+      const postEncontrado = this.postsList.find(post => post.id === id);
+      this.ordenesList = postEncontrado?.orders ?? [];
+    
+      if (this.ordenesList.length > 0) {
+        this.mostrarOrdenes = true;
+    
+        // Crear un arreglo de observables para obtener los detalles de los productos
+        const productObservables = this.ordenesList.map(orden => {
+          // Asumiendo que tienes un campo 'productId' en tu modelo OrderModel
+          return this.logicaDeNegocioService.ObtenerPost(orden.post_id); 
+        });
+    
+        forkJoin(productObservables).subscribe(
+          (respuestas: PostIdModel[]) => {
+            // Combinar la información de los productos con las órdenes
+            this.ordenesList = this.ordenesList.map((orden, index) => ({
+              ...orden,
+              nombreProducto: respuestas[index].name ?? '' // Agregar el nombre del producto
+            }));
+          },
+          (error: any) => {
+            Swal.fire({
+              title: "Error!",
+              text: "Se produjo un error al obtener detalles de los productos.",
+              icon: "error",
+            });
+          }
+        );
+      }
+    }
+    
 
   PausarPost(id_post: string){
     const postEncontrado = this.postsList.find(post => post.id === id_post);

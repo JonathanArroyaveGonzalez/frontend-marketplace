@@ -50,7 +50,8 @@
     <tr>
       <th>Total</th>
       <th>Cantidad</th>
-      <th>Id Producto</th>
+      <th>Nombre Producto</th>
+      <th>Fecha creación del Pedido</th>
       <th>Estado</th>
       
     </tr>
@@ -59,7 +60,8 @@
     <tr *ngFor="let r of this.ordenesList">
       <td>{{r.total_amount | currency:'COP':'symbol-narrow':'1.0-0' }} </td>
       <td>{{ r.quantity }}</td>
-      <td>{{ r.post_id }}</td>
+      <td>{{r.nombreProducto}}</td>
+      <td>{{r.creation_date | date:'dd/MM/yyyy'}}</td>
       <td *ngIf="r.status == 0">Activo</td>
       <td *ngIf="r.status == 2">Finalizado</td>
       <td *ngIf="r.status == 1">Cancelado</td>
@@ -68,10 +70,10 @@
         <a
         (click)="this.ActualizarEstadoOrden(r.id, 2);"
           class="btn green"
-          *ngIf="r.status != 1 && r.status != 2">Marcar como Finalizado</a
+          *ngIf="r.status !== 1 && r.status !== 2">Marcar como Finalizado</a
         >&nbsp;
         <a (click)="this.ActualizarEstadoOrden(r.id, 1)" class="btn red"
-          *ngIf="r.status != 1 && r.status != 2" >Cancelar Pedido</a
+          *ngIf="r.status !== 1 && r.status !== 2" >Cancelar Pedido</a
         >
       </td>
     </tr>
