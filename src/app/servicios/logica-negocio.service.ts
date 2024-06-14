@@ -114,6 +114,14 @@ AgregarProductosAlCarrito(id: string, cantidad: number): void {
   this.guardarCarritoEnLocalStorage(currentCart); // Guarda en localStorage
 }
 
+EliminarProductoDelCarrito(id: string): void {
+  const currentCart = this.shopingCartSubject.value;
+  const updatedCart = currentCart.filter(item => item.id !== id); // Filtra para excluir el producto
+
+  this.shopingCartSubject.next(updatedCart); // Actualiza el BehaviorSubject
+  this.guardarCarritoEnLocalStorage(updatedCart); // Guarda en localStorage
+}
+
 LimpiarCarrito() {
   this.shopingCartSubject.next([]);
   this.guardarCarritoEnLocalStorage([]); // Limpia en localStorage

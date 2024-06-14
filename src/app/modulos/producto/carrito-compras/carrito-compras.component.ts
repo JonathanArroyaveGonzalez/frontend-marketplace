@@ -58,6 +58,7 @@ export class CarritoComprasComponent implements OnInit {
 
   eliminarItemList(id: string) {
     this.listItem = this.listItem.filter(item => item.id !== id);
+    this.LogicaDeNegocioService.EliminarProductoDelCarrito(id);
     this.calcularTotalCompra();
   }
 
