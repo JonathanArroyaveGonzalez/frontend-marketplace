@@ -13,19 +13,21 @@
       <header>
         <h1 class="title" style="text-align: center;">{{post?.name}}</h1>
         <div class="price">
-          <h4>${{post?.price}}</h4>
+          <h4>{{post?.price | currency:'COP':'symbol-narrow':'1.0-0'}}</h4>
         </div>
         
         <label for="cantidad" class="input-field col s1">Unidades</label>
         <div class="row">
             <input type="number" name="cantidad" id="cantidad" [(ngModel)]="cantidadProducto" value="1" class="input-field col s1">
-          
-            <button type="button"  class="input-field col s6  waves-effect waves-light btn-large blue-grey darken-3" style="margin-left: 100px;" (click)="this.agregarAlCarrito();">
-              <img src="http://co0kie.github.io/codepen/nike-product-page/cart.png" alt="">
+
+             <button type="button"  class="input-field col s6  waves-effect waves-light btn-large blue-grey darken-3" style="margin-left: 100px;" (click)="this.agregarAlCarrito();">
+              <i class="material-icons ">add_shopping_cart</i>
               <span>añadir al carrito</span>
             </button>
+            
         </div>
-
+        
+        
         <article>
           <h5>Descripción</h5>
           <p>{{post?.description}}.</p>

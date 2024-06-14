@@ -103,7 +103,11 @@
     font-weight: bold;
   }
 
-  
+  i.material-icons { /* O el selector que uses para tus iconos */
+    font-family: "Material Icons"; /* Restaura la fuente original */
+}
+
+
   
 
 

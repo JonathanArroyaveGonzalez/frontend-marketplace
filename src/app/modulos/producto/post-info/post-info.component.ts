@@ -1,16 +1,18 @@
 import { Component, OnInit } from '@angular/core';
-import { ActivatedRoute } from '@angular/router';
+import { ActivatedRoute, Router } from '@angular/router';
 import { PostIdModel } from 'src/app/core/models/Post.id.model';
 import { QualificationModel } from 'src/app/core/models/Qualification.model';
 import { LogicaNegocioService } from 'src/app/servicios/logica-negocio.service';
 import Swal from 'sweetalert2';
 
+declare let M: any;
 @Component({
   selector: 'app-post-info',
   templateUrl: './post-info.component.html',
   styleUrls: ['./post-info.component.css']
 })
 export class PostInfoComponent implements OnInit {
+  
   post: PostIdModel | null = null;
   recordId: string = "";
   currentImageIndex: number = 0;
@@ -21,6 +23,7 @@ export class PostInfoComponent implements OnInit {
 
   constructor(
     private route: ActivatedRoute,
+    private Router: Router,
     private logicaNegocioService: LogicaNegocioService
   ) {
     this.recordId = this.route.snapshot.params["id"];
@@ -28,6 +31,7 @@ export class PostInfoComponent implements OnInit {
 
   ngOnInit() {
     this.loadPost();
+    M.AutoInit();
   }
 
   loadPost() {
@@ -75,6 +79,21 @@ export class PostInfoComponent implements OnInit {
       title: "Producto agregado al carrito",
       showConfirmButton: false,
       timer: 1000
+    });
+
+    Swal.fire({
+      title: "Producto agregado al carrito",
+      text: "Quieres ir al carrito de compras ?",
+      icon: "success",
+      showCancelButton: true,
+      confirmButtonColor: "#3085d6",
+      cancelButtonColor: "#d33",
+      cancelButtonText: "Seguir comprando",
+      confirmButtonText: "Ver carrito",
+    }).then((result) => {
+      if (result.isConfirmed) {
+        this.Router.navigate(['producto/carrito-compras']);
+      }
     });
   }
   

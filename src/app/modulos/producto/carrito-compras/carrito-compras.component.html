@@ -19,7 +19,7 @@
       <td>
         
         <a (click)="this.eliminarItemList(r.id)" class="btn red"
-          >Eliminar del carrito</a
+          >Eliminar del carrito <i  class="material-icons right">remove_shopping_cart</i></a
         >
       </td>
     </tr>
@@ -27,7 +27,9 @@
       <td></td>
       <th>Total</th>
       <td>{{this.totalCompra | currency:'COP':'symbol-narrow':'1.0-0' }}</td>
-      <td><a (click)="this.RealizarPedido();" class="btn" *ngIf="this.listItem" >Realizar Pedido</a></td>
+      <td><a (click)="this.RealizarPedido();" class="btn" *ngIf="this.listItem" >Realizar Pedido
+         <i  class="material-icons right">local_shipping</i>
+      </a></td>
     </tr>
     
   </tbody>

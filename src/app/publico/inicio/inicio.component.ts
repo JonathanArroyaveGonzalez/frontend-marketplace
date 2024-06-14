@@ -100,11 +100,18 @@ export class InicioComponent implements OnInit, AfterViewInit {
   agregarAlCarrito(id: string) {
     this.servicioLogicaNegocio.AgregarProductosAlCarrito(id,1);
     Swal.fire({
-      position: "center",
-      icon: "success",
       title: "Producto agregado al carrito",
-      showConfirmButton: false,
-      timer: 1000
+      text: "Quieres ir al carrito de compras ?",
+      icon: "success",
+      showCancelButton: true,
+      confirmButtonColor: "#3085d6",
+      cancelButtonColor: "#d33",
+      cancelButtonText: "Seguir comprando",
+      confirmButtonText: "Ver carrito",
+    }).then((result) => {
+      if (result.isConfirmed) {
+        this.router.navigate(['producto/carrito-compras']);
+      }
     });
   }
 
