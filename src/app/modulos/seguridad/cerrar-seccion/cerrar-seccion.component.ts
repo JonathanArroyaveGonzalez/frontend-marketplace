@@ -18,11 +18,14 @@ export class CerrarSeccionComponent implements OnInit {
 
   ngOnInit(){
     this.cerrarSesion();
+    setTimeout(() => {
+      this.cerrarSesion();
+      this.router.navigate([""]);
+    }, 5000); // 5000 milisegundos = 5 segundos
   }
   
   cerrarSesion(){
     this.servicioSeguridad.RemoverDatosUsuarioValidado();
     this.logicaDeNegocioService.LimpiarCarrito();
-    this.router.navigate([""]);
   }
 }

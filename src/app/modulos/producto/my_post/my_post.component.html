@@ -70,10 +70,10 @@
         <a
         (click)="this.ActualizarEstadoOrden(r.id, 2);"
           class="btn green"
-          *ngIf="r.status !== 1 && r.status !== 2">Marcar como Finalizado</a
+          *ngIf="r.status == 0">Marcar como Finalizado</a
         >&nbsp;
         <a (click)="this.ActualizarEstadoOrden(r.id, 1)" class="btn red"
-          *ngIf="r.status !== 1 && r.status !== 2" >Cancelar Pedido</a
+          *ngIf="r.status == 0" >Cancelar Pedido</a
         >
       </td>
     </tr>

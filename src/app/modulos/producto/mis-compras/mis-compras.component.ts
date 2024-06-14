@@ -16,6 +16,7 @@ export class MisComprasComponent implements OnInit {
 
     ordenes: any = [];
     ordenesVacias: boolean = false;
+    mostrarCalificacion: boolean = true;
   ngOnInit() {
     this.ListarOrdenes();
   }
@@ -152,6 +153,7 @@ export class MisComprasComponent implements OnInit {
               showConfirmButton: false,
               timer: 1500
             });
+            this.ActualizarEstado(id);
           },
           error: (err) =>{
             Swal.fire({
@@ -163,9 +165,29 @@ export class MisComprasComponent implements OnInit {
             });
           }
         })
+
         
+       
       }
     });
   }
+
+
+
+ActualizarEstado(id: string){
+  this.servicioLogicaDeNegocio.ActualizarStatusPedido({"status": 3,"orderId": id}).subscribe({
+    next: (datos:any)=>{
+      this.mostrarCalificacion = false;
+    },
+    error:(err:any)=>{
+      Swal.fire({
+        title: "Error!",
+        text: "No se actualizo el estado de la orden, intenta de nuevo mas tarde.",
+        icon: "error"
+
+      });
+    }
+  })
+}
 
 }
