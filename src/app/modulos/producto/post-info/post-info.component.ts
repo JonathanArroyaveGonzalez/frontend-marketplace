@@ -41,6 +41,7 @@ export class PostInfoComponent implements OnInit {
     this.logicaNegocioService.ObtenerPost(this.recordId).subscribe({
       next: (respuesta: PostIdModel) => {
         this.post = respuesta;
+        this.phone =this.post?.phone ?? '';
         this.updateImage();
        
         if (this.post && this.post.qualifications && this.post.qualifications.length > 0) { 
